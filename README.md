@@ -23,9 +23,10 @@ You can't, just yet.
         - [ ] Check agent version, notify agent of new version if applicable
         - [ ] Issue commands from queue if applicable
 	- Agent
-		- [ ] Checkin regularly
-		- [ ] If agent is old, self-update
-		- [ ] Receive commands, execute, and relay result to server
+        - [x] Checkin regularly
+        - [ ] Handle checkin failure gracefully, perhaps internet check and exponential falloff? 
+        - [ ] If agent is old, self-update
+        - [ ] Receive commands, execute, and relay result to server
 
 - Release 2
 	- Per-user remote agent as user daemon, with remote control access
