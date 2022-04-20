@@ -9,9 +9,9 @@ You can't, just yet.
 
 # Release Plan
 - Release 0
-	- Create release plan to tease features
-	- Begin Documentation-driven development with rough spec (this)
-	- Make release plan public
+	- [x] Create release plan to tease features
+	- [x] Begin Documentation-driven development with rough spec (this)
+	- [x] Make release plan public
 
 - Release 1
 	- Server
