@@ -3,6 +3,10 @@ Remote Access Toolkit Daemon
 
 IT Asset Remote Management and Monitoring (RMM) platform
 
+How to use:
+---
+You can't, just yet.
+
 # Release Plan
 - Release 0
 	- Create release plan to tease features
