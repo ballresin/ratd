@@ -11,12 +11,13 @@ IT Asset Remote Management and Monitoring (RMM) platform
 
 - Release 1
 	- Server
-		- [x] Stand up DB
-		- [ ] Listen on a port (443?)
-		- [ ] Receive checkins
-		- [ ] Web portal for agent management
-		- [ ] Check agent version, notify agent of new version if applicable
-		- [ ] Issue commands from queue if applicable
+        - [x] Stand up DB
+        - [x] Listen on a port
+        - [x] Receive checkins
+        - [x] Super rough web output
+        - [ ] Web portal for agent management
+        - [ ] Check agent version, notify agent of new version if applicable
+        - [ ] Issue commands from queue if applicable
 	- Agent
 		- [ ] Checkin regularly
 		- [ ] If agent is old, self-update

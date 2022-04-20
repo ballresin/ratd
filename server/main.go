@@ -3,10 +3,11 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"net/http"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -39,7 +40,7 @@ func main() {
 	s.router = httprouter.New()
 
 	s.router.POST("/checkin/:agentID", s.handleCheckin)
-	s.router.GET("/agent/:agentID", handleAgentReq)
+	s.router.GET("/agent/:agentID", s.handleAgentReq)
 
 	go s.checkinProcessor()
 
