@@ -3,16 +3,22 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
+
+	"github.com/kardianos/service"
 )
 
 type agent struct {
-	id            int
+	ID            int
+	Version       float64
 	hc            http.Client
 	checkinServer string
 	WANOffline    bool
@@ -20,20 +26,62 @@ type agent struct {
 
 func checkError(err error) bool {
 	if err != nil {
-		log.Print(err)
+		_, fileName, lineNum, _ := runtime.Caller(1)
+		fileName = filepath.Base(fileName)
+		fmt.Printf("%s %s:%d: %s \n", time.Now().Format("2006-01-02 15:04:05"), fileName, lineNum, errors.Unwrap(err).Error())
 		return true
 	}
 	return false
 }
 
+type program struct{}
+
 func main() {
+
+	log.SetFlags(0)
+	// check if interactive?
+	// daemonize yourself
+	svcConfig := &service.Config{
+		Name:        "ratd",
+		DisplayName: "ratd Agent",
+		Description: "IT asset management tool",
+		UserName:    "root",
+		Executable:  "/usr/local/bin/ratd",
+		Option:      service.KeyValue{"KeepAlive": true, "RunAtLoad": true},
+	}
+
+	prg := program{}
+	s, err := service.New(prg, svcConfig)
+	if checkError(err) {
+		log.Fatal(err)
+	}
+
+	log.Printf("Starting program")
+
+	err = s.Run()
+	if checkError(err) {
+		return
+	}
+}
+
+func (p program) Stop(s service.Service) error {
+	return nil
+}
+
+func (p program) Start(s service.Service) error {
+	go p.run()
+	return nil
+}
+
+func (p program) run() {
 
 	var a *agent
 
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 
 	a = &agent{
-		id: 1,
+		ID:      1,
+		Version: .01,
 		hc: http.Client{
 			Timeout: time.Minute * 2,
 		},
@@ -41,10 +89,11 @@ func main() {
 	}
 
 	type checkin struct {
-		ID int
+		ID      int
+		Version float64
 	}
 
-	c := checkin{ID: a.id}
+	c := checkin{ID: a.ID, Version: a.Version}
 
 	cBytes, err := json.Marshal(c)
 	if checkError(err) {
@@ -65,7 +114,7 @@ func main() {
 				if time.Since(lastSuccessfulInternetCheckup) < time.Minute*falloff {
 					continue
 				}
-				
+
 				// exponential internet check falloff?
 				log.Printf("Internet last successfully checked on %s, backing off, checking again in %s", lastSuccessfulInternetCheckup.String(), (falloff * time.Minute).String())
 				falloff *= 2
@@ -110,4 +159,5 @@ func main() {
 		}
 	}
 
+	return
 }

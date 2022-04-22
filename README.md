@@ -19,12 +19,15 @@ You can't, just yet.
         - [x] Listen on a port
         - [x] Receive checkins
         - [x] Super rough web output
-        - [ ] Web portal for agent management
+        - [ ] Web portal for agent management (using websocket?)
         - [ ] Check agent version, notify agent of new version if applicable
         - [ ] Issue commands from queue if applicable
 	- Agent
         - [x] Checkin regularly
-        - [ ] Handle checkin failure gracefully, perhaps internet check and exponential falloff? 
+        - [x] Handle checkin failure gracefully, perhaps internet check and exponential falloff? 
+        - [x] Daemonize agent (macos)
+        - [ ] Daemonize agent (windows)
+        - [ ] Daemonize agent (linux)
         - [ ] If agent is old, self-update
         - [ ] Receive commands, execute, and relay result to server
 

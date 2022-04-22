@@ -21,14 +21,15 @@ func checkError(err error) bool {
 }
 
 type server struct {
-	db          *sql.DB
-	router      *httprouter.Router
-	checkinChan chan checkin
+	db           *sql.DB
+	router       *httprouter.Router
+	checkinChan  chan checkin
+	agentVersion float64
 }
 
 func main() {
 
-	s := &server{}
+	s := &server{agentVersion: .01}
 
 	var err error
 	s.db, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(localhost:3308)/%s?parseTime=true", os.Getenv("RATD_MYSQL_USER"), os.Getenv("RATD_MYSQL_PASS"), os.Getenv("RATD_MYSQL_DB_NAME")))

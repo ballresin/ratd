@@ -1,0 +1,11 @@
+# github.com/kardianos/service v1.2.1
+## explicit
+github.com/kardianos/service
+# golang.org/x/sys v0.0.0-20220422013727-9388b58f7150
+## explicit
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/windows
+golang.org/x/sys/windows/registry
+golang.org/x/sys/windows/svc
+golang.org/x/sys/windows/svc/eventlog
+golang.org/x/sys/windows/svc/mgr
